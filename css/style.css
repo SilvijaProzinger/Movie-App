@@ -5,6 +5,9 @@ body {
   margin: 0;
   max-width: 100%;
   overflow-x: hidden;
+  border: 20px solid transparent;
+  border-image: linear-gradient(60deg, #dc3d24 0%, #dc8324 100%);
+  border-image-slice: 1;
 }
 
 h1 {
@@ -14,12 +17,6 @@ h1 {
 
 h3 {
   word-spacing: 7px;
-}
-
-hr {
-  border: none;
-  height: 2px;
-  background: linear-gradient(60deg, #dc3d24 0%, #dc8324 100%);
 }
 
 svg {
