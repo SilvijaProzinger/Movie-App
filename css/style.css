@@ -53,10 +53,17 @@ svg {
 }
 .movies .movie .moviePoster {
   width: 200px;
+  padding-top: 20px;
 }
 @media only screen and (min-width: 1500px) and (min-height: 1000px) {
   .movies .movie .moviePoster {
     width: 300px;
+  }
+}
+@media only screen and (max-width: 520px) {
+  .movies .movie .moviePoster {
+    display: block;
+    margin: 0 auto;
   }
 }
 .movies .movie .movieName {
@@ -177,13 +184,28 @@ svg {
   padding: 3%;
   width: 650px;
   overflow-y: scroll;
-  height: 500px;
   max-width: 100%;
   max-height: 100%;
   z-index: 999;
   transform: translate(-50%, -50%);
 }
-@media screen and (max-width: 385px) {
+.movie-info .movieSummary {
+  font-weight: 200;
+  line-height: 1.4;
+}
+.movie-info .poster {
+  padding: 20px;
+  width: 300px;
+  float: left;
+}
+@media only screen and (max-width: 689px) {
+  .movie-info .poster {
+    float: none;
+    display: block;
+    margin: 0 auto;
+  }
+}
+@media only screen and (max-width: 385px) {
   .movie-info {
     width: 100vw;
     height: 100vh;
@@ -193,7 +215,7 @@ svg {
     padding: 2%;
   }
 }
-@media screen and (min-width: 385px) and (max-width: 700px) {
+@media only screen and (min-width: 385px) and (max-width: 700px) {
   .movie-info {
     width: 100vw;
     height: 100vh;
@@ -203,10 +225,9 @@ svg {
     padding: 2%;
   }
 }
-@media screen and (min-width: 1500px) and (min-height: 1000px) {
+@media only screen and (min-width: 1500px) and (min-height: 1000px) {
   .movie-info {
     width: 750px;
-    height: 700px;
     font-size: 1.3em;
   }
 }
@@ -218,6 +239,11 @@ svg {
   height: 40px;
   background-color: #dc3d24;
   position: absolute;
+}
+@media only screen and (max-width: 700px) {
+  .close-button {
+    right: 30px;
+  }
 }
 
 .movie-roulette-container {
@@ -260,6 +286,7 @@ svg {
 }
 .movie-roulette .roll-button:hover {
   background-color: #5cb85c;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=style.css.map */

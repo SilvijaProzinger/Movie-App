@@ -79,8 +79,8 @@ const getMovieInformation = (data) => {
   let output = `
     <h2>${movie.title}</h2>
     <hr>
-    <img class="moviePoster" src='https://image.tmdb.org/t/p/w185/${movie.poster_path}' alt='${movie.original_title}'>
-    <h4>${movie.overview}</h4>
+    <img class="poster" src='https://image.tmdb.org/t/p/w185/${movie.poster_path}' alt='${movie.original_title}'>
+    <h4 class="movieSummary">${movie.overview}</h4>
     <h4>Rating: ${movie.vote_average}</h4>
     <h4>Popularity: ${movie.popularity}</h4>
     <h4>Language: ${movie.original_language}</h4>
@@ -177,8 +177,8 @@ const getRouletteMovie = () => {
       let output = `
         <h2>${movie.title}</h2>
         <hr>
-        <img class="moviePoster" src='https://image.tmdb.org/t/p/w185/${movie.poster_path}' alt='${movie.original_title}'>
-        <h4>${movie.overview}</h4>
+        <img class="poster" src='https://image.tmdb.org/t/p/w185/${movie.poster_path}' alt='${movie.original_title}'>
+        <h4 class="movieSummary">${movie.overview}</h4>
         <h4>Rating: ${movie.vote_average}</h4>
         <h4>Popularity: ${movie.popularity}</h4>
         <h4>Language: ${movie.original_language}</h4>`;
