@@ -10,6 +10,27 @@ let movieRoulette = document.getElementById('rouletteButton');
 let movieRouletteDiv = document.getElementById('movieRoulette');
 let genre = '';
 
+let starDiv = document.querySelector('.stars')
+let starsNodeList = starDiv.children
+let stars = Array.prototype.slice.call(starsNodeList)
+let allStars = stars.length
+
+
+// star rating 
+starDiv.addEventListener('click', function(e) {
+  let index = stars.indexOf(e.target)
+  let rating = allStars - index
+  console.log(rating)
+})
+
+starDiv.addEventListener('click', function(e) {
+  stars.forEach(function(el) {
+    el.classList.remove('selected')
+  })
+  e.target.classList.add('selected')
+})
+
+// fetch movies on homepage 
 const fetchMovie = () =>  {
 	//by default fetch the top rated movies
     let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${pageNumber}`; 
@@ -79,12 +100,12 @@ const getMovieInformation = (data) => {
   let output = `
     <h2>${movie.title}</h2>
     <hr>
-    <img class="poster" src='https://image.tmdb.org/t/p/w185/${movie.poster_path}' alt='${movie.original_title}'>
+    <img class="poster" src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.original_title}'>
     <h4 class="movieSummary">${movie.overview}</h4>
-    <h4>Rating: ${movie.vote_average}</h4>
-    <h4>Popularity: ${movie.popularity}</h4>
-    <h4>Language: ${movie.original_language}</h4>
-    <h4>Production companies: ${production}</h4>`;
+    <h4 class="movieInformation">Rating: ${movie.vote_average}</h4>
+    <h4 class="movieInformation">Popularity: ${movie.popularity}</h4>
+    <h4 class="movieInformation">Language: ${movie.original_language}</h4>
+    <h4 class="movieInformation">Production companies: ${production}</h4>`;
   movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
 }
 
@@ -177,11 +198,11 @@ const getRouletteMovie = () => {
       let output = `
         <h2>${movie.title}</h2>
         <hr>
-        <img class="poster" src='https://image.tmdb.org/t/p/w185/${movie.poster_path}' alt='${movie.original_title}'>
+        <img class="poster" src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.original_title}'>
         <h4 class="movieSummary">${movie.overview}</h4>
-        <h4>Rating: ${movie.vote_average}</h4>
-        <h4>Popularity: ${movie.popularity}</h4>
-        <h4>Language: ${movie.original_language}</h4>`;
+        <h4 class="movieInformation">Rating: ${movie.vote_average}</h4>
+        <h4 class="movieInformation">Popularity: ${movie.popularity}</h4>
+        <h4 class="movieInformation">Language: ${movie.original_language}</h4>`;
       movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
       })
       .catch(error => 

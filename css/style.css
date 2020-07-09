@@ -30,6 +30,34 @@ svg {
   }
 }
 
+.star svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+  pointer-events: none;
+}
+
+.star:hover svg, .star:hover ~ .star svg {
+  fill: orange;
+}
+
+.star.selected svg,
+.star.selected ~ .star svg {
+  fill: #996300;
+}
+
+.stars-div {
+  display: inline-block;
+}
+
+.stars {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-flow: row-reverse;
+}
+
 .movies {
   display: flex;
   flex-direction: row;
@@ -193,12 +221,17 @@ svg {
   font-weight: 200;
   line-height: 1.4;
 }
+@media only screen and (max-width: 700px) {
+  .movie-info .movieSummary, .movie-info .movieInformation {
+    margin: 10px;
+  }
+}
 .movie-info .poster {
   padding: 20px;
-  width: 300px;
+  width: 250px;
   float: left;
 }
-@media only screen and (max-width: 689px) {
+@media only screen and (max-width: 699px) {
   .movie-info .poster {
     float: none;
     display: block;

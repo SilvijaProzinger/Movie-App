@@ -36,6 +36,34 @@ svg {
 	}
 }
 
+.star svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+  pointer-events: none;
+}
+
+.star:hover svg, .star:hover ~ .star svg {
+  fill: orange;
+}
+
+.star.selected svg,
+.star.selected ~ .star svg {
+  fill: #996300;
+}
+
+.stars-div {
+	display: inline-block;
+}
+
+.stars {
+	position: fixed;
+	top: 0;
+	right: 0;
+	display: flex;
+	flex-flow: row-reverse;
+}
+
 .movies {
 	display: flex;
 	flex-direction: row;
@@ -205,12 +233,18 @@ svg {
 		line-height: 1.4;
 	}
 
+	@media only screen and (max-width: $medium-screen) {
+		.movieSummary, .movieInformation {
+			margin: 10px;
+		}
+	}
+
 	.poster {
 		padding: 20px;
-		width: 300px;
+		width: 250px;
 		float: left;
 
-			@media only screen and (max-width: 689px){
+			@media only screen and (max-width: 699px){
 				float: none;
 				display: block;
 				margin: 0 auto;
