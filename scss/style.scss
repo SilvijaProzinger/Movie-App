@@ -57,11 +57,10 @@ svg {
 }
 
 .stars {
-	position: fixed;
-	top: 0;
-	right: 0;
+	bottom: 10px;
 	display: flex;
 	flex-flow: row-reverse;
+	z-index: 999;
 }
 
 .movies {
@@ -212,7 +211,7 @@ svg {
 	left: 0;
 }
 
-.movie-info {
+.movies-rating {
 	color: #E0E0E0;
 	background-color: #464646;
 	top: 50vh;

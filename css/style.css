@@ -51,11 +51,10 @@ svg {
 }
 
 .stars {
-  position: fixed;
-  top: 0;
-  right: 0;
+  bottom: 10px;
   display: flex;
   flex-flow: row-reverse;
+  z-index: 999;
 }
 
 .movies {
@@ -203,7 +202,7 @@ svg {
   left: 0;
 }
 
-.movie-info {
+.movies-rating {
   color: #E0E0E0;
   background-color: #464646;
   top: 50vh;
@@ -217,29 +216,29 @@ svg {
   z-index: 999;
   transform: translate(-50%, -50%);
 }
-.movie-info .movieSummary {
+.movies-rating .movieSummary {
   font-weight: 200;
   line-height: 1.4;
 }
 @media only screen and (max-width: 700px) {
-  .movie-info .movieSummary, .movie-info .movieInformation {
+  .movies-rating .movieSummary, .movies-rating .movieInformation {
     margin: 10px;
   }
 }
-.movie-info .poster {
+.movies-rating .poster {
   padding: 20px;
   width: 250px;
   float: left;
 }
 @media only screen and (max-width: 699px) {
-  .movie-info .poster {
+  .movies-rating .poster {
     float: none;
     display: block;
     margin: 0 auto;
   }
 }
 @media only screen and (max-width: 385px) {
-  .movie-info {
+  .movies-rating {
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -249,7 +248,7 @@ svg {
   }
 }
 @media only screen and (min-width: 385px) and (max-width: 700px) {
-  .movie-info {
+  .movies-rating {
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -259,7 +258,7 @@ svg {
   }
 }
 @media only screen and (min-width: 1500px) and (min-height: 1000px) {
-  .movie-info {
+  .movies-rating {
     width: 750px;
     font-size: 1.3em;
   }

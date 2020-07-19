@@ -15,20 +15,15 @@ let starsNodeList = starDiv.children
 let stars = Array.prototype.slice.call(starsNodeList)
 let allStars = stars.length
 
+let rated = [
+  { key: 0, movieId: '419704', rating: 7 }
+]
 
-// star rating 
-starDiv.addEventListener('click', function(e) {
-  let index = stars.indexOf(e.target)
-  let rating = allStars - index
-  console.log(rating)
-})
+let moviez = [
+  { key: 0, title: 'Interstellar'}
+]
 
-starDiv.addEventListener('click', function(e) {
-  stars.forEach(function(el) {
-    el.classList.remove('selected')
-  })
-  e.target.classList.add('selected')
-})
+let uniqueId
 
 // fetch movies on homepage 
 const fetchMovie = () =>  {
@@ -76,7 +71,6 @@ load.addEventListener('click', loadMore);
 
 //show info for each clicked movie
 const fetchMovieInfo = (id) => {
-	console.log('clicked');
   if (movieDiv.style.display === "block") {
       movieDiv.style.display = "none";
   } else {
@@ -85,6 +79,8 @@ const fetchMovieInfo = (id) => {
 
   //save the movie id inside the local storage so that we can fetch the movie based on its id
   localStorage.setItem('movieId', id);
+  uniqueId = id
+  console.log(uniqueId)
 
   let url =`${urlBase}movie/${id}?api_key=${key}&language=en-US`; 
     fetch(url)
@@ -107,6 +103,38 @@ const getMovieInformation = (data) => {
     <h4 class="movieInformation">Language: ${movie.original_language}</h4>
     <h4 class="movieInformation">Production companies: ${production}</h4>`;
   movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
+
+  moviez.push({key: moviez.length + 1, title: movie.original_title })
+  console.log(moviez)
+  localStorage.setItem('moviez', JSON.stringify(moviez));
+}
+
+starDiv.addEventListener('click', function(e) {
+    let index = stars.indexOf(e.target)
+    let rating = allStars - index
+    handleRating(rating)
+})
+
+starDiv.addEventListener('click', function(e) {
+  stars.forEach(function(el) {
+    el.classList.remove('selected')
+})
+  e.target.classList.add('selected')
+})
+
+const handleRating = (rating) => { 
+  const length = rated.length;
+  const found = rated.some(el => el.movieId === uniqueId);
+  
+  //if rating already exists show the rating if not add it for that movie
+  if (!found){
+    rated.push({key: length + 1, movieId: uniqueId, rating: rating })
+    console.log(rated)
+    localStorage.setItem('rated', JSON.stringify(rated))
+    console.log('Movie id is: ', uniqueId, ' and star rating: ', rating)
+  } else {
+    alert('found')
+  }
 }
 
 /* if the event target is the dynamically added button close, call the close function, due to the fact that dynamically created buttons 
