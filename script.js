@@ -11,16 +11,16 @@ let movieRouletteDiv = document.getElementById('movieRoulette');
 let genre = '';
 
 let starDiv = document.querySelector('.stars')
-let starsNodeList = starDiv.children
-let stars = Array.prototype.slice.call(starsNodeList)
-let allStars = stars.length
-
-let rated = [
-  { key: 0, movieId: '419704', rating: 7 }
-]
+//let starsNodeList = starDiv.children
+let stars = Array.prototype.slice.call(starDiv.children)
+//let allStars = stars.length
 
 let moviez = [
   { key: 0, title: 'Interstellar'}
+]
+
+let rated = [
+  { key: 0, movieId: '419704', rating: 7 }
 ]
 
 let uniqueId
@@ -111,31 +111,40 @@ const getMovieInformation = (data) => {
 
 starDiv.addEventListener('click', function(e) {
     let index = stars.indexOf(e.target)
-    let rating = allStars - index
-    handleRating(rating)
+    let rating = stars.length - index
+
+    const length = rated.length;
+    const found = rated.some(el => el.movieId === uniqueId);
+
+    if (!found){
+      handleRating(rating)
+    } else {
+      alert('rated')
+      alreadyRated(rating)
+    }
 })
+
+const alreadyRated = (rating) => {
+  console.log(rating)
+  stars.slice(1,rating).forEach(function(el){
+    el.classList.add('selected')
+  })
+}
+
+const handleRating = (rating) => { 
+  //if rating already exists show the rating if not add it for that movie
+  rated.push({key: length + 1, movieId: uniqueId, rating: rating })
+  console.log(rated)
+  localStorage.setItem('rated', JSON.stringify(rated))
+  console.log('Movie id is: ', uniqueId, ' and star rating: ', rating)
+}
 
 starDiv.addEventListener('click', function(e) {
   stars.forEach(function(el) {
     el.classList.remove('selected')
-})
+  })
   e.target.classList.add('selected')
 })
-
-const handleRating = (rating) => { 
-  const length = rated.length;
-  const found = rated.some(el => el.movieId === uniqueId);
-  
-  //if rating already exists show the rating if not add it for that movie
-  if (!found){
-    rated.push({key: length + 1, movieId: uniqueId, rating: rating })
-    console.log(rated)
-    localStorage.setItem('rated', JSON.stringify(rated))
-    console.log('Movie id is: ', uniqueId, ' and star rating: ', rating)
-  } else {
-    alert('found')
-  }
-}
 
 /* if the event target is the dynamically added button close, call the close function, due to the fact that dynamically created buttons 
 can't use the onclick method */
@@ -147,6 +156,9 @@ document.body.addEventListener( 'click', function(event){
 
 const close = () => {
   movieDiv.style.display = 'none';
+  stars.forEach(function(el) {
+    el.classList.remove('selected')
+  })
 }
 
 // add a button which will jump to the top if the user scrolls down
@@ -187,7 +199,6 @@ const getRouletteMovie = () => {
   console.log(checked)
   //close the roulette form
   movieRouletteDiv.style.display = "none"
-  //document.getElementById('loaderAnimation').style.display = 'block'
 
   let genreId = ''
   //the genre id changes based on what the user selected
@@ -211,18 +222,20 @@ const getRouletteMovie = () => {
       genreId = 35
       break
   }
+
   let randomPage = Math.floor(Math.random(1) * Math.floor(500));
   let randomId = Math.floor(Math.random() * Math.floor(19));
   console.log(randomPage, randomId)
 
   let proxy = `https://cors-anywhere.herokuapp.com/`
-  let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=${randomPage}&with_genres=${genreId}`
-  movieContent.innerHTML = `<h3>Loading...</h3>`
+  let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&with_original_language=en&page=${randomPage}&with_genres=${genreId}`
+  movieContent.innerHTML = `<h3>Searching through the database, this might take a moment...</h3>`
   fetch(proxy + url)
       .then((res) => res.json())
       .then((data) => {
       console.log(data.results)
       let movie = data.results[randomId]
+      uniqueId = data.results[randomId].id.toString()
       let output = `
         <h2>${movie.title}</h2>
         <hr>
@@ -234,7 +247,7 @@ const getRouletteMovie = () => {
       movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
       })
       .catch(error => 
-        movieContent.innerHTML = '<h3>Sorry! There has been a server error. Try again later.</h3>'
+        movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + '<h3>Sorry! There has been a server error. Try again later.</h3>'
       ) 
 
 if (movieDiv.style.display === "block") {

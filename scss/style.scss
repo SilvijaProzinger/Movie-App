@@ -41,6 +41,7 @@ svg {
   height: 20px;
   fill: white;
   pointer-events: none;
+  padding: 1px;
 }
 
 .star:hover svg, .star:hover ~ .star svg {
