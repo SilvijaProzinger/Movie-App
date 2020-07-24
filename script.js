@@ -8,16 +8,16 @@ let movieDiv = document.getElementById('movieDiv');
 let movieContent = document.getElementById('movieWindow');
 let movieRoulette = document.getElementById('rouletteButton');
 let movieRouletteDiv = document.getElementById('movieRoulette');
-let genre = '';
+//let genre = '';
 
 let starDiv = document.querySelector('.stars')
 //let starsNodeList = starDiv.children
 let stars = Array.prototype.slice.call(starDiv.children)
 //let allStars = stars.length
 
-let moviez = [
+/*let moviez = [
   { key: 0, title: 'Interstellar'}
-]
+]*/
 
 let rated = [
   { key: 0, movieId: '419704', rating: 7 }
@@ -28,26 +28,27 @@ let uniqueId
 // fetch movies on homepage 
 const fetchMovie = () =>  {
 	//by default fetch the top rated movies
-    let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${pageNumber}`; 
-      fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-      getMovies(data)
-    })
+  let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${pageNumber}`; 
+    fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+    getMovies(data)
+  })
+  // WHILE TESTING
+  //window.localStorage.clear();
 }
 
 fetchMovie();
 
 //load more movies
 const loadMore = () => {
-	console.log('clicked')
-	 let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${++pageNumber}`; 
-      fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-      console.log(data);
-      getMovies(data);
-    })
+	let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${++pageNumber}`; 
+    fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+    console.log(data);
+    getMovies(data);
+  })
 }
 
 const getMovies = (data) => {
@@ -80,7 +81,6 @@ const fetchMovieInfo = (id) => {
   //save the movie id inside the local storage so that we can fetch the movie based on its id
   localStorage.setItem('movieId', id);
   uniqueId = id
-  console.log(uniqueId)
 
   let url =`${urlBase}movie/${id}?api_key=${key}&language=en-US`; 
     fetch(url)
@@ -104,35 +104,41 @@ const getMovieInformation = (data) => {
     <h4 class="movieInformation">Production companies: ${production}</h4>`;
   movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
 
-  moviez.push({key: moviez.length + 1, title: movie.original_title })
+  /*moviez.push({key: moviez.length + 1, title: movie.original_title })
   console.log(moviez)
-  localStorage.setItem('moviez', JSON.stringify(moviez));
+  localStorage.setItem('moviez', JSON.stringify(moviez));*/
+  checkRating()
+}
+
+const checkRating = () => {
+  const found = rated.some(el => el.movieId === uniqueId);
+
+  //if the movie is already rated run the already rated function to show the rating from local storage
+  if (found){
+    alreadyRated()
+  }
 }
 
 starDiv.addEventListener('click', function(e) {
     let index = stars.indexOf(e.target)
     let rating = stars.length - index
-
-    const length = rated.length;
     const found = rated.some(el => el.movieId === uniqueId);
-
-    if (!found){
-      handleRating(rating)
-    } else {
-      alert('rated')
-      alreadyRated(rating)
-    }
+    handleRating(rating)
 })
 
-const alreadyRated = (rating) => {
-  console.log(rating)
-  stars.slice(1,rating).forEach(function(el){
+const alreadyRated = () => {
+  let foundRating = rated.find(item => item.movieId === uniqueId)
+  let value = foundRating.rating
+  console.log(value)
+  //let sliced = stars.reverse().slice(0,value)
+  stars.slice(value).forEach(function(el){
+    console.log(stars)
     el.classList.add('selected')
   })
 }
 
 const handleRating = (rating) => { 
-  //if rating already exists show the rating if not add it for that movie
+  //push the rating and movie id to rated array so that we can save it in local storage
   rated.push({key: length + 1, movieId: uniqueId, rating: rating })
   console.log(rated)
   localStorage.setItem('rated', JSON.stringify(rated))
