@@ -126,13 +126,13 @@ starDiv.addEventListener('click', function(e) {
     handleRating(rating)
 })
 
+//find the movie's rating in rated array and then slice the stars so that the rated number of stars is marked as rated
 const alreadyRated = () => {
   let foundRating = rated.find(item => item.movieId === uniqueId)
   let value = foundRating.rating
   console.log(value)
-  //let sliced = stars.reverse().slice(0,value)
-  stars.slice(value).forEach(function(el){
-    console.log(stars)
+  //mark the right amount of stars by substracting the rating from the length (because the css makes them flow in reverse)
+  stars.slice(stars.length - value).forEach(function(el){
     el.classList.add('selected')
   })
 }
