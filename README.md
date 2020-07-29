@@ -13,8 +13,6 @@ A movie app made with HTML, SASS, vanilla JavaScript and Moviedb API. The app fe
 * Top Rated Movies
 * Movie details
 * Movie Roulette 
-
-## To be added
 * User rating
 
 ## Code dependencies
