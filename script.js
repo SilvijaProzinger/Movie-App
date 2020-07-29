@@ -94,7 +94,7 @@ const getMovieInformation = (data) => {
   let movie = data
   let production = movie.production_companies.map(company => company.name)
   let output = `
-    <h2>${movie.title}</h2>
+    <h2 class="title">${movie.title}</h2>
     <hr>
     <img class="poster" src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.original_title}'>
     <h4 class="movieSummary">${movie.overview}</h4>
@@ -243,7 +243,7 @@ const getRouletteMovie = () => {
       let movie = data.results[randomId]
       uniqueId = data.results[randomId].id.toString()
       let output = `
-        <h2>${movie.title}</h2>
+        <h2 class="title">${movie.title}</h2>
         <hr>
         <img class="poster" src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.original_title}'>
         <h4 class="movieSummary">${movie.overview}</h4>

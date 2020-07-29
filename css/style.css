@@ -28,8 +28,8 @@ h3 {
 }
 @media only screen and (max-width: 385px) {
   .svg {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
   }
 }
 
@@ -52,6 +52,12 @@ h3 {
 
 .stars-div {
   display: inline-block;
+}
+@media only screen and (max-width: 700px) {
+  .stars-div {
+    margin: 10px;
+    padding-bottom: 20px;
+  }
 }
 
 .stars {
@@ -85,6 +91,7 @@ h3 {
 .movies .movie .moviePoster {
   width: 200px;
   padding-top: 20px;
+  padding-bottom: 10px;
 }
 @media only screen and (min-width: 1500px) and (min-height: 1000px) {
   .movies .movie .moviePoster {
@@ -219,6 +226,11 @@ h3 {
   max-height: 100%;
   z-index: 999;
   transform: translate(-50%, -50%);
+}
+@media only screen and (max-width: 700px) {
+  .movies-rating .title {
+    margin: 10px;
+  }
 }
 .movies-rating .movieSummary {
   font-weight: 200;

@@ -35,8 +35,8 @@ h3 {
 	}
 
 	@media only screen and (max-width: $small-screen){
-		width: 20px;
-		height: 20px;
+		width: 15px;
+		height: 15px;
 	}
 }
 
@@ -59,6 +59,11 @@ h3 {
 
 .stars-div {
 	display: inline-block;
+
+	@media only screen and (max-width: $medium-screen){
+		margin: 10px;
+		padding-bottom: 20px;
+	}
 }
 
 .stars {
@@ -90,6 +95,7 @@ h3 {
 			.moviePoster {
 				width: 200px;
 				padding-top: 20px;
+				padding-bottom: 10px;
 
 				@media only screen and (min-width: $large-screen) and (min-height: $large-height){
 					width: 300px;
@@ -231,6 +237,12 @@ h3 {
 	max-height: 100%;
 	z-index: 999;
 	transform: translate(-50%,-50%);
+
+	.title {
+		@media only screen and (max-width: $medium-screen){
+			margin: 10px;
+		}
+	}
 
 	.movieSummary {
 		font-weight: 200;
