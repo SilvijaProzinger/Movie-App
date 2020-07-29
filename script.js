@@ -27,7 +27,7 @@ let uniqueId
 
 // fetch movies on homepage 
 const fetchMovie = () =>  {
-	//by default fetch the top rated movies
+  //by default fetch the top rated movies
   let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${pageNumber}`; 
     fetch(url)
     .then((res) => res.json())
@@ -42,7 +42,7 @@ fetchMovie();
 
 //load more movies
 const loadMore = () => {
-	let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${++pageNumber}`; 
+  let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&sort_by=popularity.desc&page=${++pageNumber}`; 
     fetch(url)
     .then((res) => res.json())
     .then((data) => {
@@ -169,7 +169,7 @@ const close = () => {
 
 // add a button which will jump to the top if the user scrolls down
 window.onscroll = function(){
-	scrollFunction()
+  scrollFunction()
 };
 
 const scrollFunction = () => {
@@ -182,8 +182,8 @@ const scrollFunction = () => {
 
 //when the button is clicked go to top of page
 const topFunction = () => {
-	document.body.scrollTop = 0;
-	document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
 }
 
 goToTop.addEventListener('click', topFunction);
