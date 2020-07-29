@@ -19,12 +19,15 @@ h3 {
   word-spacing: 7px;
 }
 
-svg {
+.svg {
   width: 25px;
   height: 25px;
 }
+.svg:hover {
+  cursor: pointer;
+}
 @media only screen and (max-width: 385px) {
-  svg {
+  .svg {
     width: 20px;
     height: 20px;
   }
