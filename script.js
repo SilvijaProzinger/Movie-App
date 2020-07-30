@@ -1,6 +1,7 @@
 let urlBase = 'https://api.themoviedb.org/3/';
 let key = config.MY_KEY;
 let pageNumber = 1;
+
 let moviesDiv = document.getElementById('moviesContainer');
 let load = document.getElementById('loadButton');
 let goToTop = document.getElementById('topButton');
@@ -8,15 +9,13 @@ let movieDiv = document.getElementById('movieDiv');
 let movieContent = document.getElementById('movieWindow');
 let movieRoulette = document.getElementById('rouletteButton');
 let movieRouletteDiv = document.getElementById('movieRoulette');
-
 let starDiv = document.querySelector('.stars')
 let stars = Array.prototype.slice.call(starDiv.children)
 
+let uniqueId
 let rated = [
   { key: 0, movieId: '419704', rating: 7 }
 ]
-
-let uniqueId
 
 // fetch movies on homepage 
 const fetchMovie = () =>  {
@@ -27,7 +26,7 @@ const fetchMovie = () =>  {
     .then((data) => {
     getMovies(data)
   })
-  window.localStorage.clear();
+  //window.localStorage.clear();
 }
 
 fetchMovie();
@@ -43,7 +42,7 @@ const loadMore = () => {
   })
 }
 
-const getMovies = (data) => {
+const getMovies = data => {
   let output = '';
   data.results.forEach(function(movie){
     output += `
@@ -63,13 +62,8 @@ load.addEventListener('click', loadMore);
 
 
 //show info for each clicked movie
-const fetchMovieInfo = (id) => {
-  if (movieDiv.style.display === "block") {
-      movieDiv.style.display = "none";
-  } else {
-      movieDiv.style.display = "block";
-  }
-
+const fetchMovieInfo = id => {
+  movieDiv.style.display === "block" ? movieDiv.style.display = "none" : movieDiv.style.display = "block";
   //save the movie id inside the local storage so that we can fetch the movie based on its id
   localStorage.setItem('movieId', id);
   uniqueId = id
@@ -82,7 +76,7 @@ const fetchMovieInfo = (id) => {
     })
 }
 
-const getMovieInformation = (data) => {
+const getMovieInformation = data => {
   let movie = data
   let production = movie.production_companies.map(company => company.name)
   let output = `
@@ -102,7 +96,7 @@ const getMovieInformation = (data) => {
 const checkRating = () => {
   const found = rated.some(el => el.movieId === uniqueId);
 
-  //if the movie is already rated run the already rated function to show the rating from local storage
+  //if the movie is already rated run the alreadyRated function to show the rating from local storage
   if (found){
     alreadyRated()
   }
@@ -126,7 +120,7 @@ const alreadyRated = () => {
   })
 }
 
-const handleRating = (rating) => { 
+const handleRating = rating => { 
   //push the rating and movie id to rated array so that we can save it in local storage
   rated.push({key: length + 1, movieId: uniqueId, rating: rating })
   console.log(rated)
@@ -162,11 +156,7 @@ window.onscroll = function(){
 };
 
 const scrollFunction = () => {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    goToTop.style.display = "block";
-  } else {
-    goToTop.style.display = "none";
-  }
+  document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ? goToTop.style.display = "block" : goToTop.style.display = "none";
 }
 
 //when the button is clicked go to top of page
@@ -179,12 +169,7 @@ goToTop.addEventListener('click', topFunction);
 
 //add the movie roulette function
 const openMovieRoulette = () => {
-  console.log('clicked')
-  if (movieRouletteDiv.style.display === "block") {
-      movieRouletteDiv.style.display = "none";
-  } else {
-      movieRouletteDiv.style.display = "block";
-  }
+  movieRouletteDiv.style.display === "block" ? movieRouletteDiv.style.display = "none" : movieRouletteDiv.style.display = "block";
 }
 
 //add the fetch movie by genre function
@@ -224,6 +209,7 @@ const getRouletteMovie = () => {
 
   let proxy = `https://cors-anywhere.herokuapp.com/`
   let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&with_original_language=en&page=${randomPage}&with_genres=${genreId}`
+  starDiv.style.display = "none"
   movieContent.innerHTML = `<h3>Searching through the database, this might take a moment...</h3>`
   fetch(proxy + url)
       .then((res) => res.json())
@@ -239,17 +225,13 @@ const getRouletteMovie = () => {
         <h4 class="movieInformation">Rating: ${movie.vote_average}</h4>
         <h4 class="movieInformation">Popularity: ${movie.popularity}</h4>
         <h4 class="movieInformation">Language: ${movie.original_language}</h4>`;
+      starDiv.style.display = "flex"
       movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
       })
       .catch(error => 
         movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + '<h3>Sorry! There has been a server error. Try again later.</h3>'
       ) 
-
-if (movieDiv.style.display === "block") {
-    movieDiv.style.display = "none";
-  } else {
-    movieDiv.style.display = "block";
-  }
+  movieDiv.style.display === "block" ? movieDiv.style.display = "none" : movieDiv.style.display = "block";
 }
 
 movieRoulette.addEventListener('click', openMovieRoulette);
