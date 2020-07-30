@@ -80,64 +80,64 @@ h3 {
 	padding: 20px;
 	justify-content: space-evenly;
 
-		.movie {
-		list-style: none;
-	    justify-content: space-between;
-		width: 200px;
-		background-color: #464646;
-		margin: 30px;
-		padding: 20px;
-		position: relative;
+	.movie {
+	list-style: none;
+    justify-content: space-between;
+	width: 200px;
+	background-color: #464646;
+	margin: 30px;
+	padding: 20px;
+	position: relative;
 
-		@media only screen and (min-width: $large-screen) and (min-height: $large-height){
-			width: 300px;
-		}
-			.moviePoster {
-				width: 200px;
-				padding-top: 20px;
-				padding-bottom: 10px;
+	@media only screen and (min-width: $large-screen) and (min-height: $large-height){
+		width: 300px;
+	}
+		.moviePoster {
+			width: 200px;
+			padding-top: 20px;
+			padding-bottom: 10px;
 
-				@media only screen and (min-width: $large-screen) and (min-height: $large-height){
-					width: 300px;
-				}
-
-				@media only screen and (max-width: 520px){
-					display: block;
-					margin: 0 auto;
-				}
+			@media only screen and (min-width: $large-screen) and (min-height: $large-height){
+				width: 300px;
 			}
 
-			.movieName {
-				font-size: 25px;
-				text-align: $align;
-				color: #E0E0E0;
-				cursor: pointer;
-			}
-
-			.movieName:hover {
-				color: #dc8324 ;
-			}
-
-			.movieText {
-				text-align: $align;
-				color: #E0E0E0;
-			}
-
-			.rating {
-				border: $border;
-				border-radius: 50%;
-				text-align: center;
-				width: 25px;
-				height: 20px;
-				padding: 15px;
-				margin: -15px;
-				float: right;
-	 			position: absolute;
-	 			top: 0px;
-	  			right: 0px;
-				background-color: #dc3d24;
+			@media only screen and (max-width: 520px){
+				display: block;
+				margin: 0 auto;
 			}
 		}
+
+		.movieName {
+			font-size: 25px;
+			text-align: $align;
+			color: #E0E0E0;
+			cursor: pointer;
+		}
+
+		&:hover {
+			color: #dc8324 ;
+		}
+
+		.movieText {
+			text-align: $align;
+			color: #E0E0E0;
+		}
+
+		.rating {
+			border: $border;
+			border-radius: 50%;
+			text-align: center;
+			width: 25px;
+			height: 20px;
+			padding: 15px;
+			margin: -15px;
+			float: right;
+ 			position: absolute;
+ 			top: 0px;
+  			right: 0px;
+			background-color: #dc3d24;
+		}
+	}
 }
 
 .button {
@@ -164,31 +164,30 @@ h3 {
 	@media only screen and (max-width: $small-screen){
 		margin-left: calc(50vw - 80px);	
 	}
-}
 
-.bottom-buttons {
-	margin-left: calc(50vw - 90px);	
+	@media only screen and (min-width: $small-screen) and (max-width: 690px){
+		margin-left: 30vw;
+	}
 }
 
 .load-button {
 	background-color: #E0E0E0;
-	//margin-left: 45%;
 	bottom: 2%;
-}
 
-.load-button:hover {
-	cursor: pointer;
-	background-color: #5cb85c;
-};
+	&:hover {
+		cursor: pointer;
+		background-color: #5cb85c;
+	}
+}
 
 .roulette-button {
 	background-color: #dc3d24;
 	bottom: 2%;
-}
 
-.roulette-button:hover {
-	cursor: pointer;
-	background-color: #5cb85c;
+	&:hover {
+		cursor: pointer;
+		background-color: #5cb85c;
+	}
 }
 
 .jump-top-button {
@@ -196,19 +195,17 @@ h3 {
 	display: none;
 	right: 10px;
 	bottom: 18%;
-	//z-index: 99;
 	float: right;
 	background-color: #dc8324;
 
 		@media only screen and (max-width: $small-screen){
 			bottom: 10%;
 		}
-}
 
-
-.jump-top-button:hover {
-	cursor: pointer;
-	background-color: #5cb85c;
+	&:hover {
+		cursor: pointer;
+		background-color: #5cb85c
+	}
 }
 
 //adding overlay so that the background is more transparent when the movie pop up is open
@@ -227,12 +224,10 @@ h3 {
 	background-color: #464646;
 	top: 50vh;
 	left: 50vw;
-	//margin-left: -350px;
 	position: fixed;
 	padding: 3%;
 	width: 650px;
 	overflow-y: scroll;
-	//height: 500px;
 	max-width: 100%;
 	max-height: 100%;
 	z-index: 999;
@@ -286,9 +281,8 @@ h3 {
 	}
 
 	@media only screen and (min-width: $large-screen) and (min-height: $large-height){
-		width: 750px;
-		//height: 700px;
-		font-size: 1.3em;
+		width: 70%;
+		font-size: 1.5em;
 	}
 }
 
@@ -300,8 +294,8 @@ h3 {
 	background-color: #dc3d24;
 	position: absolute;
 
-	@media only screen and (max-width: $medium-screen){
-		right: 30px;
+	@media only screen and (max-width: 650px){
+		right: 0;
 	}
 }
 
@@ -331,6 +325,10 @@ h3 {
 	@media only screen and (min-width: $large-screen) and (min-height: $large-height){
 		font-size: 1.5em;
 	}
+
+	@media only screen and (max-width: 650px){
+		width: 70%;
+	}
 		.movie-roulette-title {
 			padding: 4%;
 			text-align: center;
@@ -341,10 +339,10 @@ h3 {
 		.roll-button {
 			background-color: #dc3d24;
 			margin-left: 40%;
-		}
 
-		.roll-button:hover {
-			background-color: #5cb85c;
-			cursor: pointer;
+			&:hover {
+				background-color: #5cb85c;
+				cursor: pointer;
+			}
 		}
 }

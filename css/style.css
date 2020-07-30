@@ -110,7 +110,7 @@ h3 {
   color: #E0E0E0;
   cursor: pointer;
 }
-.movies .movie .movieName:hover {
+.movies .movie:hover {
   color: #dc8324;
 }
 .movies .movie .movieText {
@@ -159,16 +159,16 @@ h3 {
     margin-left: calc(50vw - 80px);
   }
 }
-
-.bottom-buttons {
-  margin-left: calc(50vw - 90px);
+@media only screen and (min-width: 385px) and (max-width: 690px) {
+  .bottom-buttons {
+    margin-left: 30vw;
+  }
 }
 
 .load-button {
   background-color: #E0E0E0;
   bottom: 2%;
 }
-
 .load-button:hover {
   cursor: pointer;
   background-color: #5cb85c;
@@ -178,7 +178,6 @@ h3 {
   background-color: #dc3d24;
   bottom: 2%;
 }
-
 .roulette-button:hover {
   cursor: pointer;
   background-color: #5cb85c;
@@ -197,7 +196,6 @@ h3 {
     bottom: 10%;
   }
 }
-
 .jump-top-button:hover {
   cursor: pointer;
   background-color: #5cb85c;
@@ -275,8 +273,8 @@ h3 {
 }
 @media only screen and (min-width: 1500px) and (min-height: 1000px) {
   .movies-rating {
-    width: 750px;
-    font-size: 1.3em;
+    width: 70%;
+    font-size: 1.5em;
   }
 }
 
@@ -288,9 +286,9 @@ h3 {
   background-color: #dc3d24;
   position: absolute;
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 650px) {
   .close-button {
-    right: 30px;
+    right: 0;
   }
 }
 
@@ -320,6 +318,11 @@ h3 {
 @media only screen and (min-width: 1500px) and (min-height: 1000px) {
   .movie-roulette {
     font-size: 1.5em;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .movie-roulette {
+    width: 70%;
   }
 }
 .movie-roulette .movie-roulette-title {

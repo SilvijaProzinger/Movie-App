@@ -8,16 +8,9 @@ let movieDiv = document.getElementById('movieDiv');
 let movieContent = document.getElementById('movieWindow');
 let movieRoulette = document.getElementById('rouletteButton');
 let movieRouletteDiv = document.getElementById('movieRoulette');
-//let genre = '';
 
 let starDiv = document.querySelector('.stars')
-//let starsNodeList = starDiv.children
 let stars = Array.prototype.slice.call(starDiv.children)
-//let allStars = stars.length
-
-/*let moviez = [
-  { key: 0, title: 'Interstellar'}
-]*/
 
 let rated = [
   { key: 0, movieId: '419704', rating: 7 }
@@ -34,8 +27,7 @@ const fetchMovie = () =>  {
     .then((data) => {
     getMovies(data)
   })
-  // WHILE TESTING
-  //window.localStorage.clear();
+  window.localStorage.clear();
 }
 
 fetchMovie();
@@ -104,9 +96,6 @@ const getMovieInformation = (data) => {
     <h4 class="movieInformation">Production companies: ${production}</h4>`;
   movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
 
-  /*moviez.push({key: moviez.length + 1, title: movie.original_title })
-  console.log(moviez)
-  localStorage.setItem('moviez', JSON.stringify(moviez));*/
   checkRating()
 }
 
