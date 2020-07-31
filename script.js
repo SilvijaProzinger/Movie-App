@@ -214,26 +214,31 @@ const getRouletteMovie = () => {
   starDiv.style.display = "none"
   movieContent.innerHTML = `<h3>Searching through the database, this might take a moment...</h3>`
   fetch(proxy + url)
-      .then((res) => res.json())
-      .then((data) => {
-      console.log(data.results)
-      let movie = data.results[randomId]
-      uniqueId = data.results[randomId].id.toString()
-      let output = `
-        <h2 class="title">${movie.title}</h2>
-        <hr>
-        <img class="poster" src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.original_title}'>
-        <h4 class="movieSummary">${movie.overview}</h4>
-        <h4 class="movieInformation">Rating: ${movie.vote_average}</h4>
-        <h4 class="movieInformation">Popularity: ${movie.popularity}</h4>
-        <h4 class="movieInformation">Language: ${movie.original_language}</h4>`;
-      starDiv.style.display = "flex"
-      movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
-      })
-      .catch(error => 
-        movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + '<h3>Sorry! There has been a server error. Try again later.</h3>'
-      ) 
+    .then((res) => res.json())
+    .then((data) => {
+      getRouletteMovieInformation(data, randomId)
+    })
+    .catch(error => 
+      movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + '<h3>Sorry! There has been a server error. Try again later.</h3>'
+    ) 
   movieDiv.style.display === "block" ? movieDiv.style.display = "none" : movieDiv.style.display = "block";
+}
+
+const getRouletteMovieInformation = (data, randomId) => {
+  let movie = data.results[randomId]
+  uniqueId = data.results[randomId].id.toString()
+  let output = `
+    <h2 class="title">${movie.title}</h2>
+    <hr>
+    <img class="poster" src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.original_title}'>
+    <h4 class="movieSummary">${movie.overview}</h4>
+    <h4 class="movieInformation">Rating: ${movie.vote_average}</h4>
+    <h4 class="movieInformation">Popularity: ${movie.popularity}</h4>
+    <h4 class="movieInformation">Language: ${movie.original_language}</h4>`;
+  movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
+  starDiv.style.display = "flex"
+
+  checkRating()
 }
 
 movieRoulette.addEventListener('click', openMovieRoulette);
