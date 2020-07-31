@@ -14,7 +14,7 @@ let stars = Array.prototype.slice.call(starDiv.children)
 
 let uniqueId
 let rated = [
-  { key: 0, movieId: '419704', rating: 7 }
+  { key: 1, movieId: '419704', rating: 7 }
 ]
 
 // fetch movies on homepage 
@@ -61,7 +61,7 @@ const getMovies = data => {
 load.addEventListener('click', loadMore);
 
 
-//show info for each clicked movie
+//fetch info for each clicked movie based on its id
 const fetchMovieInfo = id => {
   movieDiv.style.display === "block" ? movieDiv.style.display = "none" : movieDiv.style.display = "block";
   //save the movie id inside the local storage so that we can fetch the movie based on its id
@@ -73,9 +73,10 @@ const fetchMovieInfo = id => {
       .then((res) => res.json())
       .then((data) => {
         getMovieInformation(data);
-    })
+      })
 }
 
+//show the relevant information for each clicked movie 
 const getMovieInformation = data => {
   let movie = data
   let production = movie.production_companies.map(company => company.name)
@@ -102,6 +103,7 @@ const checkRating = () => {
   }
 }
 
+//make the stars clickable and then save the selected rating to handleRating function
 starDiv.addEventListener('click', function(e) {
     let index = stars.indexOf(e.target)
     let rating = stars.length - index
@@ -122,7 +124,7 @@ const alreadyRated = () => {
 
 const handleRating = rating => { 
   //push the rating and movie id to rated array so that we can save it in local storage
-  rated.push({key: length + 1, movieId: uniqueId, rating: rating })
+  rated.push({key: rated.length + 1, movieId: uniqueId, rating: rating })
   console.log(rated)
   localStorage.setItem('rated', JSON.stringify(rated))
   console.log('Movie id is: ', uniqueId, ' and star rating: ', rating)
