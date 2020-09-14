@@ -26,7 +26,6 @@ const fetchMovie = () =>  {
     .then((data) => {
     getMovies(data)
   })
-  //window.localStorage.clear();
 }
 
 fetchMovie();
