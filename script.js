@@ -1,5 +1,5 @@
 const urlBase = 'https://api.themoviedb.org/3/';
-    key = config.MY_KEY;
+    key = '0bef6e42b1fd970cf5ecf3c91fd0eea5'
     pageNumber = 1;
     moviesDiv = document.getElementById('moviesContainer');
     load = document.getElementById('loadButton');
