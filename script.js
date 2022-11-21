@@ -1,21 +1,19 @@
-let urlBase = 'https://api.themoviedb.org/3/';
-let key = config.MY_KEY;
-let pageNumber = 1;
-
-let moviesDiv = document.getElementById('moviesContainer');
-let load = document.getElementById('loadButton');
-let goToTop = document.getElementById('topButton');
-let movieDiv = document.getElementById('movieDiv');
-let movieContent = document.getElementById('movieWindow');
-let movieRoulette = document.getElementById('rouletteButton');
-let movieRouletteDiv = document.getElementById('movieRoulette');
-let starDiv = document.querySelector('.stars')
-let stars = Array.prototype.slice.call(starDiv.children)
+const urlBase = 'https://api.themoviedb.org/3/';
+    key = config.MY_KEY;
+    pageNumber = 1;
+    moviesDiv = document.getElementById('moviesContainer');
+    load = document.getElementById('loadButton');
+    goToTop = document.getElementById('topButton');
+    movieDiv = document.getElementById('movieDiv');
+    movieContent = document.getElementById('movieWindow');
+    movieRoulette = document.getElementById('rouletteButton');
+    movieRouletteDiv = document.getElementById('movieRoulette');
+    starDiv = document.querySelector('.stars')
+    stars = Array.prototype.slice.call(starDiv.children)
 
 let uniqueId
-let rated = [
-  { key: 1, movieId: '419704', rating: 7 }
-]
+
+let ratings = JSON.parse(localStorage.getItem('ratings') || '[]');
 
 // fetch movies on homepage 
 const fetchMovie = () =>  {
@@ -45,9 +43,9 @@ const getMovies = data => {
   let output = '';
   data.results.forEach(function(movie){
     output += `
-      <ul class="movie">
+      <ul class="movie" onclick="fetchMovieInfo('${movie.id}')">
         <img class="moviePoster" src='https://image.tmdb.org/t/p/w342/${movie.poster_path}'>
-        <li class="movieName" onclick="fetchMovieInfo('${movie.id}')">${movie.title}</li>
+        <li class="movieName">${movie.title}</li>
         <br>
         <li class="movieText">Language: ${movie.original_language}</li>
         <li class="rating">${movie.vote_average}</li>
@@ -81,7 +79,6 @@ const getMovieInformation = data => {
   let production = movie.production_companies.map(company => company.name)
   let output = `
     <h2 class="title">${movie.title}</h2>
-    <hr>
     <img class="poster" src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.original_title}'>
     <h4 class="movieSummary">${movie.overview}</h4>
     <h4 class="movieInformation">Rating: ${movie.vote_average}</h4>
@@ -89,16 +86,14 @@ const getMovieInformation = data => {
     <h4 class="movieInformation">Language: ${movie.original_language}</h4>
     <h4 class="movieInformation">Production companies: ${production}</h4>`;
   movieContent.innerHTML = `<button class="button close-button" id="closeModal">X</button>` + output;
-
   checkRating()
 }
 
 const checkRating = () => {
-  const found = rated.some(el => el.movieId === uniqueId);
-
+  const found = ratings.find(el => el.movieId === uniqueId);
   //if the movie is already rated run the alreadyRated function to show the rating from local storage
   if (found){
-    alreadyRated()
+    alreadyRated(found)
   }
 }
 
@@ -106,15 +101,12 @@ const checkRating = () => {
 starDiv.addEventListener('click', function(e) {
     let index = stars.indexOf(e.target)
     let rating = stars.length - index
-    const found = rated.some(el => el.movieId === uniqueId);
     handleRating(rating)
 })
 
 //find the movie's rating in rated array and then slice the stars so that the rated number of stars is marked as rated
-const alreadyRated = () => {
-  let foundRating = rated.find(item => item.movieId === uniqueId)
-  let value = foundRating.rating
-  console.log(value)
+const alreadyRated = found => {
+  let value = found.rating
   //mark the right amount of stars by substracting the rating from the length (because the css makes them flow in reverse)
   stars.slice(stars.length - value).forEach(function(el){
     el.classList.add('selected')
@@ -123,13 +115,22 @@ const alreadyRated = () => {
 
 const handleRating = rating => { 
   //push the rating and movie id to rated array so that we can save it in local storage
-  rated.push({key: rated.length + 1, movieId: uniqueId, rating: rating })
-  console.log(rated)
-  localStorage.setItem('rated', JSON.stringify(rated))
+  let newRating = { key: ratings.length + 1, movieId: uniqueId, rating: rating }
   console.log('Movie id is: ', uniqueId, ' and star rating: ', rating)
+
+  const found = ratings.find(movie => movie.movieId === uniqueId);
+
+  //update rating if it exists or add it if it doesn't
+  if (found) {
+    found.rating = newRating.rating
+  } else {
+    ratings.push(newRating)
+  } 
+  localStorage.setItem('ratings', JSON.stringify(ratings))
 }
 
 starDiv.addEventListener('click', function(e) {
+  e.preventDefault()
   stars.forEach(function(el) {
     el.classList.remove('selected')
   })
@@ -206,13 +207,13 @@ const getRouletteMovie = () => {
 
   let randomPage = Math.floor(Math.random(1) * Math.floor(500));
   let randomId = Math.floor(Math.random() * Math.floor(19));
-  console.log(randomPage, randomId)
+  //console.log(randomPage, randomId)
 
-  let proxy = `https://cors-anywhere.herokuapp.com/`
+  const proxy = `https://cors-anywhere.herokuapp.com/`
   let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&with_original_language=en&page=${randomPage}&with_genres=${genreId}`
   starDiv.style.display = "none"
   movieContent.innerHTML = `<h3>Searching through the database, this might take a moment...</h3>`
-  fetch(proxy + url)
+  fetch(url)
     .then((res) => res.json())
     .then((data) => {
       getRouletteMovieInformation(data, randomId)
@@ -228,7 +229,6 @@ const getRouletteMovieInformation = (data, randomId) => {
   uniqueId = data.results[randomId].id.toString()
   let output = `
     <h2 class="title">${movie.title}</h2>
-    <hr>
     <img class="poster" src='https://image.tmdb.org/t/p/w500/${movie.poster_path}' alt='${movie.original_title}'>
     <h4 class="movieSummary">${movie.overview}</h4>
     <h4 class="movieInformation">Rating: ${movie.vote_average}</h4>

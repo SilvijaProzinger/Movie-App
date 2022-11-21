@@ -9,6 +9,11 @@ body {
   border-image: linear-gradient(60deg, #dc3d24 0%, #dc8324 100%);
   border-image-slice: 1;
 }
+@media only screen and (max-width: 385px) {
+  body {
+    border-width: 10px;
+  }
+}
 
 h1 {
   color: #E0E0E0;
@@ -17,6 +22,25 @@ h1 {
 
 h3 {
   word-spacing: 7px;
+}
+
+.app-title {
+  display: flex;
+  justify-content: center;
+}
+.app-title::before {
+  content: "";
+  display: block;
+  background: url("../icons8-film-reel-100.png") no-repeat;
+  width: 50px;
+  height: 50px;
+  background-size: 50px;
+  margin-right: 15px;
+}
+@media only screen and (min-width: 1500px) {
+  .app-title {
+    font-size: 2.5rem;
+  }
 }
 
 .svg {
@@ -67,36 +91,38 @@ h3 {
   z-index: 999;
 }
 
+.container {
+  padding: 60px 0;
+}
+@media only screen and (min-width: 1500px) {
+  .container {
+    padding: 100px 0;
+  }
+}
+
 .movies {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 20px;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
 }
 .movies .movie {
   list-style: none;
   justify-content: space-between;
-  width: 200px;
   background-color: #464646;
   margin: 30px;
   padding: 20px;
   position: relative;
+  border-radius: 8px;
 }
-@media only screen and (min-width: 1500px) and (min-height: 1000px) {
-  .movies .movie {
-    width: 300px;
-  }
+.movies .movie:hover {
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.44) 0px 3px 8px;
 }
 .movies .movie .moviePoster {
-  width: 200px;
+  width: 100%;
   padding-top: 20px;
   padding-bottom: 10px;
-}
-@media only screen and (min-width: 1500px) and (min-height: 1000px) {
-  .movies .movie .moviePoster {
-    width: 300px;
-  }
 }
 @media only screen and (max-width: 520px) {
   .movies .movie .moviePoster {
@@ -110,9 +136,6 @@ h3 {
   color: #E0E0E0;
   cursor: pointer;
 }
-.movies .movie:hover {
-  color: #dc8324;
-}
 .movies .movie .movieText {
   text-align: left;
   color: #E0E0E0;
@@ -122,21 +145,38 @@ h3 {
   border-radius: 50%;
   text-align: center;
   width: 25px;
-  height: 20px;
+  height: 25px;
   padding: 15px;
-  margin: -15px;
+  margin: -25px;
   float: right;
   position: absolute;
   top: 0px;
   right: 0px;
   background-color: #dc3d24;
 }
+@media only screen and (max-width: 385px) {
+  .movies .movie .rating {
+    width: 20px;
+    height: 20px;
+    margin: -20px;
+  }
+}
+@media only screen and (min-width: 1500px) {
+  .movies {
+    padding: 40px;
+  }
+}
+@media only screen and (max-width: 385px) {
+  .movies {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
 
 .button {
   border: none;
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   padding: 10px;
   margin: 20px;
   font-size: 1.2rem;
@@ -152,22 +192,18 @@ h3 {
 }
 
 .bottom-buttons {
-  margin-left: calc(50vw - 90px);
-}
-@media only screen and (max-width: 385px) {
-  .bottom-buttons {
-    margin-left: calc(50vw - 80px);
-  }
-}
-@media only screen and (min-width: 385px) and (max-width: 690px) {
-  .bottom-buttons {
-    margin-left: 30vw;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .load-button {
   background-color: #E0E0E0;
   bottom: 2%;
+  width: auto;
+  border-radius: 8px;
+  height: auto;
+  padding: 10px 15px;
 }
 .load-button:hover {
   cursor: pointer;
@@ -176,7 +212,19 @@ h3 {
 
 .roulette-button {
   background-color: #dc3d24;
-  bottom: 2%;
+  width: auto;
+  border-radius: 8px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+}
+.roulette-button span {
+  margin-left: 5px;
+}
+.roulette-button .icon {
+  width: 15px;
+  height: 15px;
 }
 .roulette-button:hover {
   cursor: pointer;
@@ -187,13 +235,13 @@ h3 {
   position: fixed;
   display: none;
   right: 10px;
-  bottom: 18%;
+  bottom: 80px;
   float: right;
   background-color: #dc8324;
 }
 @media only screen and (max-width: 385px) {
   .jump-top-button {
-    bottom: 10%;
+    bottom: 90px;
   }
 }
 .jump-top-button:hover {
@@ -211,19 +259,32 @@ h3 {
   left: 0;
 }
 
+@media only screen and (max-width: 700px) {
+  .movie-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .movies-rating {
   color: #E0E0E0;
   background-color: #464646;
-  top: 50vh;
-  left: 50vw;
+  top: 50%;
+  left: 50%;
   position: fixed;
   padding: 3%;
   width: 650px;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-width: 100%;
   max-height: 100%;
   z-index: 999;
   transform: translate(-50%, -50%);
+  border-radius: 8px;
+}
+.movies-rating .title {
+  padding-bottom: 20px;
+  border-bottom: 1px solid white;
 }
 @media only screen and (max-width: 700px) {
   .movies-rating .title {
@@ -240,15 +301,19 @@ h3 {
   }
 }
 .movies-rating .poster {
-  padding: 20px;
+  padding: 0 20px 20px 0;
   width: 250px;
   float: left;
 }
-@media only screen and (max-width: 699px) {
+@media only screen and (max-width: 385px) {
   .movies-rating .poster {
-    float: none;
     display: block;
     margin: 0 auto;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .movies-rating .poster {
+    padding: 10px;
   }
 }
 @media only screen and (max-width: 385px) {
@@ -279,16 +344,30 @@ h3 {
 }
 
 .close-button {
-  top: 0;
-  right: 0;
+  top: 20px;
+  right: 20px;
   width: 40px;
   height: 40px;
   background-color: #dc3d24;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+.close-button:hover {
+  cursor: pointer;
 }
 @media only screen and (max-width: 650px) {
   .close-button {
-    right: 0;
+    top: 10px;
+    right: 10px;
+  }
+}
+@media only screen and (min-width: 1500px) {
+  .close-button {
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -314,6 +393,7 @@ h3 {
   z-index: 999;
   transform: translate(-50%, -50%);
   position: fixed;
+  border-radius: 8px;
 }
 @media only screen and (min-width: 1500px) and (min-height: 1000px) {
   .movie-roulette {
@@ -322,7 +402,15 @@ h3 {
 }
 @media only screen and (max-width: 650px) {
   .movie-roulette {
-    width: 70%;
+    width: auto;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: auto;
+    max-height: auto;
+    transform: none;
+    padding-top: 50px;
   }
 }
 .movie-roulette .movie-roulette-title {
@@ -333,7 +421,17 @@ h3 {
 }
 .movie-roulette .roll-button {
   background-color: #dc3d24;
-  margin-left: 40%;
+  display: block;
+  margin: 0 auto;
+  width: auto;
+  height: auto;
+  padding: 10px 15px;
+  border-radius: 8px;
+}
+@media only screen and (max-width: 700px) {
+  .movie-roulette .roll-button {
+    margin: 20px auto 0 auto;
+  }
 }
 .movie-roulette .roll-button:hover {
   background-color: #5cb85c;

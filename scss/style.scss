@@ -15,6 +15,10 @@ body {
     border: 20px solid transparent;
     border-image: linear-gradient(60deg, #dc3d24 0%, #dc8324 100%);
     border-image-slice: 1;
+
+	@media only screen and (max-width: $small-screen){
+		border-width: 10px; 
+	}
 }
 
 h1 {
@@ -24,6 +28,25 @@ h1 {
 
 h3 {
 	word-spacing: 7px;
+}
+
+.app-title {
+	display: flex;
+	justify-content: center;
+
+	&::before {
+		content: "";
+		display: block;
+		background: url('../icons8-film-reel-100.png') no-repeat;
+		width: 50px;
+		height: 50px;
+		background-size: 50px;
+		margin-right: 15px;
+	}
+
+	@media only screen and (min-width: $large-screen){
+		font-size: 2.5rem;
+	}
 }
 
 .svg {
@@ -73,33 +96,39 @@ h3 {
 	z-index: 999;
 }
 
-.movies {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	padding: 20px;
-	justify-content: space-evenly;
+.container {
+	padding: 60px 0;
 
+	@media only screen and (min-width: $large-screen){
+		padding: 100px 0;
+	}
+}
+
+.movies {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+	grid-column-gap: 20px;
+    grid-row-gap: 20px;
+	
 	.movie {
 	list-style: none;
     justify-content: space-between;
-	width: 200px;
+	//width: 200px;
 	background-color: #464646;
 	margin: 30px;
 	padding: 20px;
 	position: relative;
+	border-radius: 8px;
 
-	@media only screen and (min-width: $large-screen) and (min-height: $large-height){
-		width: 300px;
+	&:hover {
+		cursor: pointer;
+		box-shadow: rgba(0, 0, 0, 0.44) 0px 3px 8px;
 	}
+
 		.moviePoster {
-			width: 200px;
+			width: 100%;
 			padding-top: 20px;
 			padding-bottom: 10px;
-
-			@media only screen and (min-width: $large-screen) and (min-height: $large-height){
-				width: 300px;
-			}
 
 			@media only screen and (max-width: 520px){
 				display: block;
@@ -114,10 +143,6 @@ h3 {
 			cursor: pointer;
 		}
 
-		&:hover {
-			color: #dc8324 ;
-		}
-
 		.movieText {
 			text-align: $align;
 			color: #E0E0E0;
@@ -128,23 +153,37 @@ h3 {
 			border-radius: 50%;
 			text-align: center;
 			width: 25px;
-			height: 20px;
+			height: 25px;
 			padding: 15px;
-			margin: -15px;
+			margin: -25px;
 			float: right;
  			position: absolute;
  			top: 0px;
   			right: 0px;
 			background-color: #dc3d24;
+
+			@media only screen and (max-width: $small-screen){
+				width: 20px;
+				height: 20px;
+				margin: -20px;
+			}
 		}
+	}
+
+	@media only screen and (min-width: $large-screen){
+		padding: 40px;
+	}
+
+	@media only screen and (max-width: $small-screen){
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	}
 }
 
 .button {
 	border: none;
 	border-radius: 50%;
-	width: 70px;
-	height: 70px;
+	width: 60px;
+	height: 60px;
 	padding: 10px;
 	margin: 20px;
 	font-size: 1.2rem;
@@ -159,20 +198,18 @@ h3 {
 }
 
 .bottom-buttons {
-	margin-left: calc(50vw - 90px);	
-
-	@media only screen and (max-width: $small-screen){
-		margin-left: calc(50vw - 80px);	
-	}
-
-	@media only screen and (min-width: $small-screen) and (max-width: 690px){
-		margin-left: 30vw;
-	}
+	display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .load-button {
 	background-color: #E0E0E0;
 	bottom: 2%;
+	width: auto;
+    border-radius: 8px;
+    height: auto;
+    padding: 10px 15px;
 
 	&:hover {
 		cursor: pointer;
@@ -182,7 +219,21 @@ h3 {
 
 .roulette-button {
 	background-color: #dc3d24;
-	bottom: 2%;
+	width: auto;
+    border-radius: 8px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+
+	span {
+		margin-left: 5px;
+	}
+
+	.icon {
+		width: 15px;
+		height: 15px;
+	}
 
 	&:hover {
 		cursor: pointer;
@@ -194,12 +245,12 @@ h3 {
 	position: fixed;
 	display: none;
 	right: 10px;
-	bottom: 18%;
+	bottom: 80px;
 	float: right;
 	background-color: #dc8324;
 
 		@media only screen and (max-width: $small-screen){
-			bottom: 10%;
+			bottom: 90px;
 		}
 
 	&:hover {
@@ -219,21 +270,33 @@ h3 {
 	left: 0;
 }
 
+.movie-info {
+	@media only screen and (max-width: $medium-screen){
+		padding: 20px;
+		display: flex;
+    	flex-direction: column;
+	}
+}
+
 .movies-rating {
 	color: #E0E0E0;
 	background-color: #464646;
-	top: 50vh;
-	left: 50vw;
+	top: 50%;
+	left: 50%;
 	position: fixed;
 	padding: 3%;
 	width: 650px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	max-width: 100%;
 	max-height: 100%;
 	z-index: 999;
 	transform: translate(-50%,-50%);
+	border-radius: 8px;
 
 	.title {
+		padding-bottom: 20px;
+		border-bottom: 1px solid white;
+
 		@media only screen and (max-width: $medium-screen){
 			margin: 10px;
 		}
@@ -251,14 +314,17 @@ h3 {
 	}
 
 	.poster {
-		padding: 20px;
+		padding: 0 20px 20px 0;
 		width: 250px;
 		float: left;
 
-			@media only screen and (max-width: 699px){
-				float: none;
+			@media only screen and (max-width: $small-screen){
 				display: block;
 				margin: 0 auto;
+			}
+
+			@media only screen and (max-width: $medium-screen){
+				padding: 10px;
 			}
 	}
 
@@ -287,16 +353,31 @@ h3 {
 }
 
 .close-button {
-	top: 0;
-	right: 0;
+	top: 20px;
+	right: 20px;
 	width: 40px;
 	height: 40px;
 	background-color: #dc3d24;
 	position: absolute;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	font-size: 0.95rem;
+
+	&:hover {
+		cursor: pointer;
+	}
 
 	@media only screen and (max-width: 650px){
-		right: 0;
+		top: 10px;
+		right: 10px;
 	}
+
+	@media only screen and (min-width: $large-screen) {
+		width: 60px;
+		height: 60px;
+	}
+
 }
 
 .movie-roulette-container {
@@ -321,13 +402,22 @@ h3 {
 	z-index: 999;
 	transform: translate(-50%,-50%);
 	position: fixed;
+	border-radius: 8px;
 
 	@media only screen and (min-width: $large-screen) and (min-height: $large-height){
 		font-size: 1.5em;
 	}
 
 	@media only screen and (max-width: 650px){
-		width: 70%;
+		width: auto;
+		height: 100vh;
+		top: 0;
+		left: 0;
+		right: 0;
+		max-width: auto;
+		max-height: auto;
+		transform: none;
+		padding-top: 50px;
 	}
 		.movie-roulette-title {
 			padding: 4%;
@@ -338,7 +428,16 @@ h3 {
 
 		.roll-button {
 			background-color: #dc3d24;
-			margin-left: 40%;
+			display: block;
+			margin: 0 auto;
+			width: auto;
+			height: auto;
+			padding: 10px 15px;
+			border-radius: 8px;
+
+			@media only screen and (max-width: $medium-screen){
+				margin: 20px auto 0 auto;
+			}
 
 			&:hover {
 				background-color: #5cb85c;
