@@ -91,9 +91,13 @@ const getMovieInformation = data => {
 
 const checkRating = () => {
   const found = ratings.find(el => el.movieId === uniqueId);
-  //if the movie is already rated run the alreadyRated function to show the rating from local storage
+  //if the movie is already rated show the rating from local storage
   if (found){
-    alreadyRated(found)
+    let value = found.rating
+    //mark the right amount of stars by substracting the rating from the length (because the css makes them flow in reverse)
+    stars.slice(stars.length - value).forEach(function(el){
+      el.classList.add('selected')
+    })
   }
 }
 
@@ -103,15 +107,6 @@ starDiv.addEventListener('click', function(e) {
     let rating = stars.length - index
     handleRating(rating)
 })
-
-//find the movie's rating in rated array and then slice the stars so that the rated number of stars is marked as rated
-const alreadyRated = found => {
-  let value = found.rating
-  //mark the right amount of stars by substracting the rating from the length (because the css makes them flow in reverse)
-  stars.slice(stars.length - value).forEach(function(el){
-    el.classList.add('selected')
-  })
-}
 
 const handleRating = rating => { 
   //push the rating and movie id to rated array so that we can save it in local storage
