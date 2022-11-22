@@ -139,8 +139,8 @@ starDiv.addEventListener('click', function(e) {
 
 /* if the event target is the dynamically added button close, call the close function, due to the fact that dynamically created buttons 
 can't use the onclick method */
-document.body.addEventListener( 'click', function(event){
-  if (event.srcElement.id == 'closeModal') {
+document.body.addEventListener( 'click', function(e){
+  if (e.srcElement.id == 'closeModal') {
     close();
   };
 });
@@ -161,7 +161,6 @@ const scrollFunction = () => {
   document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ? goToTop.style.display = "block" : goToTop.style.display = "none";
 }
 
-//when the button is clicked go to top of page
 const topFunction = () => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
@@ -178,8 +177,6 @@ const openMovieRoulette = () => {
 const getRouletteMovie = () => {
   event.preventDefault()
   let checked = document.querySelector('input[name="genre"]:checked').value
-  console.log(checked)
-  //close the roulette form
   movieRouletteDiv.style.display = "none"
 
   let genreId = ''
@@ -207,7 +204,6 @@ const getRouletteMovie = () => {
 
   let randomPage = Math.floor(Math.random(1) * Math.floor(500));
   let randomId = Math.floor(Math.random() * Math.floor(19));
-  //console.log(randomPage, randomId)
 
   const proxy = `https://cors-anywhere.herokuapp.com/`
   let url = `${urlBase}discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&with_original_language=en&page=${randomPage}&with_genres=${genreId}`
@@ -241,7 +237,6 @@ const getRouletteMovieInformation = (data, randomId) => {
 }
 
 movieRoulette.addEventListener('click', openMovieRoulette);
-//close the roulette 
 document.getElementById('closeRoulette').addEventListener('click', function closeRoulette(){
    movieRouletteDiv.style.display = "none"
 })
